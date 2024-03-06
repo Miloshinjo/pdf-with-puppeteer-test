@@ -2,12 +2,13 @@ import puppeteer from 'puppeteer';
 
 // Generates a PDF buffer using Puppeteer
 export async function generatePdfBuffer(): Promise<Buffer> {
-  let args: string[] = ['--no-sandbox', '--disable-setuid-sandbox'];
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
 
-  const browser = await puppeteer.launch({ args });
   const page = await browser.newPage();
 
-  await page.goto('https://www.google.com/', {
+  await page.goto('https://stage.wovenlight.dev/', {
     waitUntil: 'networkidle0',
   });
 
